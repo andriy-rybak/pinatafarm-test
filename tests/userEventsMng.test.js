@@ -1,5 +1,5 @@
 const assert = require('assert');
-const pit = require('../userEventsMng');
+const pit = require('../src/userEventsMng');
 
 describe('userEventsMng', function () {
     describe('#safeAggregator()', function () {
