@@ -28,13 +28,24 @@ const userToEventMap = {
     'String': (value) => ({ old: null, new: value }),
     'Int': (value) => ({ type: 'INC', value }),
     '[String]': (value) => ({ added: value, removed: [] }),
-}
+};
 
 const eventToUserMap = {
     'String': (prevVal, { new: newVal }) => newVal,
     'Int': (prevVal = 0, { type, value }) => prevVal + sign[type] * value,
     '[String]': (prevVal = [], { added = [], removed = [] }) => prevVal.filter((el) => !removed.includes(el)).concat(added),
 };
+
+function getExecutor(fieldName, map) {
+    const fieldType = fieldTypeMap[fieldName];
+    const fn = map[fieldType];
+
+    if (!fn) {
+        throw new Error(`${fieldName} is not suported.`);
+    }
+
+    return fn;
+}
 
 function safeAggregator(prev, next, aggregator) {
     if (!prev || !next) return prev || next;
@@ -49,8 +60,8 @@ function eventsAggregator(events) {
         const { fields: aggregatedFields } = aggregatedEvent;
 
         Object.entries(fields).forEach(([fieldName, changeConfig]) => {
-            const fieldType = fieldTypeMap[fieldName];
-            aggregatedFields[fieldName] = safeAggregator(aggregatedFields[fieldName], changeConfig, typeAggregatorMap[fieldType]);
+            const executor = getExecutor(fieldName, typeAggregatorMap);
+            aggregatedFields[fieldName] = safeAggregator(aggregatedFields[fieldName], changeConfig, executor);
         });
 
         return {
@@ -62,10 +73,10 @@ function eventsAggregator(events) {
 
 function userToEvent({ id, ...user }, type) {
     return Object.entries(user).reduce(({ fields, ...event }, [fieldName, value]) => {
-        const fieldType = fieldTypeMap[fieldName];
+        const executor = getExecutor(fieldName, userToEventMap);
         return {
             fields: {
-                [fieldName]: userToEventMap[fieldType](value),
+                [fieldName]: executor(value),
                 ...fields,
             },
             ...event,
@@ -76,8 +87,8 @@ function userToEvent({ id, ...user }, type) {
 function eventsToUser(events) {
     return events.reduce((user, { id, fields }) => {
         Object.entries(fields).forEach(([fieldName, changeConfig]) => {
-            const fieldType = fieldTypeMap[fieldName];
-            const newVal = eventToUserMap[fieldType](user[fieldName], changeConfig);
+            const executor = getExecutor(fieldName, eventToUserMap);
+            const newVal = executor(user[fieldName], changeConfig);
 
             user[fieldName] = newVal;
         });
