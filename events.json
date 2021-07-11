@@ -1,0 +1,104 @@
+{
+  "events": [
+    {
+      "id": "1ebe7809-b708-46b0-b0b6-7d8f608ff08e",
+      "type": "CREATE",
+      "fields": {
+        "createdAt": "2020-10-28T03:20:02Z",
+        "updatedAt": "2020-10-28T03:20:02Z",
+        "username": "the-first-user",
+        "phoneNumber": "+19095550101",
+        "bookmarks": [
+          "da1028ad-43da-42ec-b549-dbb17963b54f",
+          "6ccb2eae-cb7c-445d-96e4-0af13f04fed2",
+          "28787d49-dd06-4118-8cca-444eb0cee3cc"
+        ],
+        "bio": "User #1!"
+      }
+    },
+    {
+      "id": "1ebe7809-b708-46b0-b0b6-7d8f608ff08e",
+      "type": "UPDATE",
+      "fields": {
+        "lastLogin": {
+          "new": "2020-10-28T03:20:30Z"
+        },
+        "updatedAt": {
+          "old": "2020-10-28T03:20:02Z",
+          "new": "2020-10-28T03:20:30Z"
+        },
+        "bio": {
+          "old": "User #1!",
+          "new": "No really, I'm user #1"
+        },
+        "bookmarks": {
+          "added": [
+            "342af9e7-e32a-4706-b9e2-9a0d11f8e229"
+          ],
+          "removed": [
+            "28787d49-dd06-4118-8cca-444eb0cee3cc"
+          ]
+        }
+      }
+    },
+    {
+      "id": "770375c4-8273-4c6f-9c68-7e55f7174c21",
+      "type": "CREATE",
+      "fields": {
+        "createdAt": "2020-10-28T03:22:02Z",
+        "updatedAt": "2020-10-28T03:22:02Z",
+        "username": "the-second-user",
+        "phoneNumber": "+19095550102",
+        "followerCount": 10,
+        "followingCount": 20,
+        "bio": "User #2!?"
+      }
+    },
+    {
+      "id": "770375c4-8273-4c6f-9c68-7e55f7174c21",
+      "type": "UPDATE",
+      "fields": {
+        "lastLogin": {
+          "new": "2020-10-28T03:23:02Z"
+        },
+        "updatedAt": {
+          "old": "2020-10-28T03:22:02Z",
+          "new": "2020-10-28T03:23:02Z"
+        },
+        "followerCount": {
+          "type": "INC",
+          "value": 10
+        },
+        "followingCount": {
+          "type": "DEC",
+          "value": 5
+        }
+      }
+    },
+    {
+      "id": "1ebe7809-b708-46b0-b0b6-7d8f608ff08e",
+      "type": "UPDATE",
+      "fields": {
+        "lastLogin": {
+          "old": "2020-10-28T03:20:30Z",
+          "new": "2020-10-28T03:24:02Z"
+        },
+        "updatedAt": {
+          "old": "2020-10-28T03:20:30Z",
+          "new": "2020-10-28T03:24:02Z"
+        },
+        "bookmarks": {
+          "added": [],
+          "removed": [
+            "342af9e7-e32a-4706-b9e2-9a0d11f8e229",
+            "da1028ad-43da-42ec-b549-dbb17963b54f"
+          ]
+        },
+        "remainingInvites": {
+          "type": "INC",
+          "value": 5
+        }
+      }
+    }
+  ]
+}

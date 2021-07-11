@@ -1,0 +1,15 @@
+{
+    "eventModelDescription": {
+        "id": "String",
+        "username": "String",
+        "bio": "String",
+        "createdAt": "String",
+        "updatedAt": "String",
+        "lastLogin": "String",
+        "followerCount": "Int",
+        "followingCount": "Int",
+        "remainingInvites": "Int",
+        "bookmarks": "[String]",
+        "phoneNumber": "String"
+    }
+}
